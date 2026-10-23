@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package proto;
+
+import "google/type/date.proto";
+
+option go_package = "gen/go;profile";
+
+enum Gender {
+    Unspecified = 0;
+    Male = 1;
+    Female = 2;
+}
+
+message Profile {
+    string id = 1;
+    string name = 2;
+    google.type.Date birthday = 3;
+    Gender gender = 4;
+    float distance = 5;
+}
+
+message GetProfileRequest {
+    string id = 1;
+}
+
+service ProfileService {
+    rpc GetProfileByID(GetProfileRequest) returns (Profile);
+}
