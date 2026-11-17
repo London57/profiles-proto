@@ -20,10 +20,18 @@ message Profile {
     float distance = 5;
 }
 
-message GetProfileRequest {
+message GetProfileByIDRequest {
     string id = 1;
 }
 
+message GetProfilesInRaduisRequest {
+    string id = 1;
+}
+message GetProfilesInRaduisResponse {
+  	repeated Profile profiles = 1;
+}
+
 service ProfileService {
-    rpc GetProfileByID(GetProfileRequest) returns (Profile);
+    rpc GetProfileByID(GetProfileByIDRequest) returns (Profile);
+    rpc GetProfilesInRadius(GetProfilesInRaduisRequest) returns (GetProfilesInRaduisResponse);
 }
