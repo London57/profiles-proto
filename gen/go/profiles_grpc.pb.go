@@ -19,14 +19,16 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ProfileService_GetProfileByID_FullMethodName = "/proto.ProfileService/GetProfileByID"
+	ProfileService_GetProfileByID_FullMethodName      = "/proto.ProfileService/GetProfileByID"
+	ProfileService_GetProfilesInRadius_FullMethodName = "/proto.ProfileService/GetProfilesInRadius"
 )
 
 // ProfileServiceClient is the client API for ProfileService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProfileServiceClient interface {
-	GetProfileByID(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*Profile, error)
+	GetProfileByID(ctx context.Context, in *GetProfileByIDRequest, opts ...grpc.CallOption) (*Profile, error)
+	GetProfilesInRadius(ctx context.Context, in *GetProfilesInRaduisRequest, opts ...grpc.CallOption) (*GetProfilesInRaduisResponse, error)
 }
 
 type profileServiceClient struct {
@@ -37,10 +39,20 @@ func NewProfileServiceClient(cc grpc.ClientConnInterface) ProfileServiceClient {
 	return &profileServiceClient{cc}
 }
 
-func (c *profileServiceClient) GetProfileByID(ctx context.Context, in *GetProfileRequest, opts ...grpc.CallOption) (*Profile, error) {
+func (c *profileServiceClient) GetProfileByID(ctx context.Context, in *GetProfileByIDRequest, opts ...grpc.CallOption) (*Profile, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(Profile)
 	err := c.cc.Invoke(ctx, ProfileService_GetProfileByID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *profileServiceClient) GetProfilesInRadius(ctx context.Context, in *GetProfilesInRaduisRequest, opts ...grpc.CallOption) (*GetProfilesInRaduisResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetProfilesInRaduisResponse)
+	err := c.cc.Invoke(ctx, ProfileService_GetProfilesInRadius_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +63,8 @@ func (c *profileServiceClient) GetProfileByID(ctx context.Context, in *GetProfil
 // All implementations must embed UnimplementedProfileServiceServer
 // for forward compatibility.
 type ProfileServiceServer interface {
-	GetProfileByID(context.Context, *GetProfileRequest) (*Profile, error)
+	GetProfileByID(context.Context, *GetProfileByIDRequest) (*Profile, error)
+	GetProfilesInRadius(context.Context, *GetProfilesInRaduisRequest) (*GetProfilesInRaduisResponse, error)
 	mustEmbedUnimplementedProfileServiceServer()
 }
 
@@ -62,8 +75,11 @@ type ProfileServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedProfileServiceServer struct{}
 
-func (UnimplementedProfileServiceServer) GetProfileByID(context.Context, *GetProfileRequest) (*Profile, error) {
+func (UnimplementedProfileServiceServer) GetProfileByID(context.Context, *GetProfileByIDRequest) (*Profile, error) {
 	return nil, status.Error(codes.Unimplemented, "method GetProfileByID not implemented")
+}
+func (UnimplementedProfileServiceServer) GetProfilesInRadius(context.Context, *GetProfilesInRaduisRequest) (*GetProfilesInRaduisResponse, error) {
+	return nil, status.Error(codes.Unimplemented, "method GetProfilesInRadius not implemented")
 }
 func (UnimplementedProfileServiceServer) mustEmbedUnimplementedProfileServiceServer() {}
 func (UnimplementedProfileServiceServer) testEmbeddedByValue()                        {}
@@ -87,7 +103,7 @@ func RegisterProfileServiceServer(s grpc.ServiceRegistrar, srv ProfileServiceSer
 }
 
 func _ProfileService_GetProfileByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetProfileRequest)
+	in := new(GetProfileByIDRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -99,7 +115,25 @@ func _ProfileService_GetProfileByID_Handler(srv interface{}, ctx context.Context
 		FullMethod: ProfileService_GetProfileByID_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ProfileServiceServer).GetProfileByID(ctx, req.(*GetProfileRequest))
+		return srv.(ProfileServiceServer).GetProfileByID(ctx, req.(*GetProfileByIDRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _ProfileService_GetProfilesInRadius_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProfilesInRaduisRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProfileServiceServer).GetProfilesInRadius(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProfileService_GetProfilesInRadius_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProfileServiceServer).GetProfilesInRadius(ctx, req.(*GetProfilesInRaduisRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -114,6 +148,10 @@ var ProfileService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProfileByID",
 			Handler:    _ProfileService_GetProfileByID_Handler,
+		},
+		{
+			MethodName: "GetProfilesInRadius",
+			Handler:    _ProfileService_GetProfilesInRadius_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -147,27 +147,27 @@ func (x *Profile) GetDistance() float32 {
 	return 0
 }
 
-type GetProfileRequest struct {
+type GetProfileByIDRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *GetProfileRequest) Reset() {
-	*x = GetProfileRequest{}
+func (x *GetProfileByIDRequest) Reset() {
+	*x = GetProfileByIDRequest{}
 	mi := &file_profiles_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *GetProfileRequest) String() string {
+func (x *GetProfileByIDRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*GetProfileRequest) ProtoMessage() {}
+func (*GetProfileByIDRequest) ProtoMessage() {}
 
-func (x *GetProfileRequest) ProtoReflect() protoreflect.Message {
+func (x *GetProfileByIDRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_profiles_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -179,16 +179,104 @@ func (x *GetProfileRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use GetProfileRequest.ProtoReflect.Descriptor instead.
-func (*GetProfileRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use GetProfileByIDRequest.ProtoReflect.Descriptor instead.
+func (*GetProfileByIDRequest) Descriptor() ([]byte, []int) {
 	return file_profiles_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *GetProfileRequest) GetId() string {
+func (x *GetProfileByIDRequest) GetId() string {
 	if x != nil {
 		return x.Id
 	}
 	return ""
+}
+
+type GetProfilesInRaduisRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetProfilesInRaduisRequest) Reset() {
+	*x = GetProfilesInRaduisRequest{}
+	mi := &file_profiles_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetProfilesInRaduisRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProfilesInRaduisRequest) ProtoMessage() {}
+
+func (x *GetProfilesInRaduisRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_profiles_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProfilesInRaduisRequest.ProtoReflect.Descriptor instead.
+func (*GetProfilesInRaduisRequest) Descriptor() ([]byte, []int) {
+	return file_profiles_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *GetProfilesInRaduisRequest) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+type GetProfilesInRaduisResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Profiles      []*Profile             `protobuf:"bytes,1,rep,name=profiles,proto3" json:"profiles,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetProfilesInRaduisResponse) Reset() {
+	*x = GetProfilesInRaduisResponse{}
+	mi := &file_profiles_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetProfilesInRaduisResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProfilesInRaduisResponse) ProtoMessage() {}
+
+func (x *GetProfilesInRaduisResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_profiles_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProfilesInRaduisResponse.ProtoReflect.Descriptor instead.
+func (*GetProfilesInRaduisResponse) Descriptor() ([]byte, []int) {
+	return file_profiles_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetProfilesInRaduisResponse) GetProfiles() []*Profile {
+	if x != nil {
+		return x.Profiles
+	}
+	return nil
 }
 
 var File_profiles_proto protoreflect.FileDescriptor
@@ -201,16 +289,21 @@ const file_profiles_proto_rawDesc = "" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12-\n" +
 	"\bbirthday\x18\x03 \x01(\v2\x11.google.type.DateR\bbirthday\x12%\n" +
 	"\x06gender\x18\x04 \x01(\x0e2\r.proto.GenderR\x06gender\x12\x1a\n" +
-	"\bdistance\x18\x05 \x01(\x02R\bdistance\"#\n" +
-	"\x11GetProfileRequest\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id*/\n" +
+	"\bdistance\x18\x05 \x01(\x02R\bdistance\"'\n" +
+	"\x15GetProfileByIDRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\",\n" +
+	"\x1aGetProfilesInRaduisRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"I\n" +
+	"\x1bGetProfilesInRaduisResponse\x12*\n" +
+	"\bprofiles\x18\x01 \x03(\v2\x0e.proto.ProfileR\bprofiles*/\n" +
 	"\x06Gender\x12\x0f\n" +
 	"\vUnspecified\x10\x00\x12\b\n" +
 	"\x04Male\x10\x01\x12\n" +
 	"\n" +
-	"\x06Female\x10\x022L\n" +
-	"\x0eProfileService\x12:\n" +
-	"\x0eGetProfileByID\x12\x18.proto.GetProfileRequest\x1a\x0e.proto.ProfileB\x10Z\x0egen/go;profileb\x06proto3"
+	"\x06Female\x10\x022\xae\x01\n" +
+	"\x0eProfileService\x12>\n" +
+	"\x0eGetProfileByID\x12\x1c.proto.GetProfileByIDRequest\x1a\x0e.proto.Profile\x12\\\n" +
+	"\x13GetProfilesInRadius\x12!.proto.GetProfilesInRaduisRequest\x1a\".proto.GetProfilesInRaduisResponseB\x10Z\x0egen/go;profileb\x06proto3"
 
 var (
 	file_profiles_proto_rawDescOnce sync.Once
@@ -225,23 +318,28 @@ func file_profiles_proto_rawDescGZIP() []byte {
 }
 
 var file_profiles_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_profiles_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_profiles_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_profiles_proto_goTypes = []any{
-	(Gender)(0),               // 0: proto.Gender
-	(*Profile)(nil),           // 1: proto.Profile
-	(*GetProfileRequest)(nil), // 2: proto.GetProfileRequest
-	(*date.Date)(nil),         // 3: google.type.Date
+	(Gender)(0),                         // 0: proto.Gender
+	(*Profile)(nil),                     // 1: proto.Profile
+	(*GetProfileByIDRequest)(nil),       // 2: proto.GetProfileByIDRequest
+	(*GetProfilesInRaduisRequest)(nil),  // 3: proto.GetProfilesInRaduisRequest
+	(*GetProfilesInRaduisResponse)(nil), // 4: proto.GetProfilesInRaduisResponse
+	(*date.Date)(nil),                   // 5: google.type.Date
 }
 var file_profiles_proto_depIdxs = []int32{
-	3, // 0: proto.Profile.birthday:type_name -> google.type.Date
+	5, // 0: proto.Profile.birthday:type_name -> google.type.Date
 	0, // 1: proto.Profile.gender:type_name -> proto.Gender
-	2, // 2: proto.ProfileService.GetProfileByID:input_type -> proto.GetProfileRequest
-	1, // 3: proto.ProfileService.GetProfileByID:output_type -> proto.Profile
-	3, // [3:4] is the sub-list for method output_type
-	2, // [2:3] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	1, // 2: proto.GetProfilesInRaduisResponse.profiles:type_name -> proto.Profile
+	2, // 3: proto.ProfileService.GetProfileByID:input_type -> proto.GetProfileByIDRequest
+	3, // 4: proto.ProfileService.GetProfilesInRadius:input_type -> proto.GetProfilesInRaduisRequest
+	1, // 5: proto.ProfileService.GetProfileByID:output_type -> proto.Profile
+	4, // 6: proto.ProfileService.GetProfilesInRadius:output_type -> proto.GetProfilesInRaduisResponse
+	5, // [5:7] is the sub-list for method output_type
+	3, // [3:5] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_profiles_proto_init() }
@@ -255,7 +353,7 @@ func file_profiles_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_profiles_proto_rawDesc), len(file_profiles_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
